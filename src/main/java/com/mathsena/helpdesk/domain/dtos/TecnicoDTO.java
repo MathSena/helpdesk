@@ -1,10 +1,10 @@
 package com.mathsena.helpdesk.domain.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.mathsena.helpdesk.domain.Tecnico;
 import com.mathsena.helpdesk.domain.enums.Perfil;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
