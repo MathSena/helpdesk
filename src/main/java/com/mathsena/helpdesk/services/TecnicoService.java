@@ -2,6 +2,7 @@ package com.mathsena.helpdesk.services;
 
 
 import com.mathsena.helpdesk.domain.Tecnico;
+import com.mathsena.helpdesk.domain.dtos.TecnicoDTO;
 import com.mathsena.helpdesk.repository.TecnicoRepository;
 import com.mathsena.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class TecnicoService {
 
     public List<Tecnico> findAll() {
         return repository.findAll();
+    }
+
+    public Tecnico create(TecnicoDTO objDto) {
+        objDto.setId(null);
+        Tecnico newObj = new Tecnico(objDto);
+        return repository.save(newObj);
     }
 }
