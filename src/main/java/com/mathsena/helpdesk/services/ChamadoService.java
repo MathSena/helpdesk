@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,11 @@ public class ChamadoService {
             chamado.setId(obj.getId());
         }
 
+        if (obj.getStatus().equals(2)) {
+            chamado.setDataFechamento(LocalDate.now());
+
+        }
+
         chamado.setTecnico(tecnico);
         chamado.setCliente(cliente);
         chamado.setPrioridade(Prioridade.toEnum(obj.getPrioridade()));
@@ -61,5 +67,11 @@ public class ChamadoService {
     }
 
 
+    public Chamado update(Integer id, ChamadoDTO objDto) throws IllegalAccessException {
+        objDto.setId(id);
+        Chamado oldObj = findById(id);
+        oldObj = newChamado(objDto);
+        return repository.save(oldObj);
+    }
 }
 
