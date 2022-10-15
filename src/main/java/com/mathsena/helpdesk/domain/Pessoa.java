@@ -2,6 +2,7 @@ package com.mathsena.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mathsena.helpdesk.domain.enums.Perfil;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public abstract class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String nome;
+
     @Column(unique = true)
     protected String cpf;
     @Column(unique = true)
@@ -25,13 +27,13 @@ public abstract class Pessoa implements Serializable {
     protected String senha;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="PERFIS")
+    @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public Pessoa(){
+    public Pessoa() {
         super();
         addPerfil(Perfil.CLIENTE);
     }
@@ -86,7 +88,7 @@ public abstract class Pessoa implements Serializable {
     }
 
     public Set<Perfil> getPerfis() {
-        return perfis.stream().map(x-> {
+        return perfis.stream().map(x -> {
             try {
                 return Perfil.toEnum(x);
             } catch (IllegalAccessException e) {

@@ -11,6 +11,7 @@ import com.mathsena.helpdesk.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -56,5 +57,13 @@ public class TecnicoService {
 
         }
 
+    }
+
+    public Tecnico update(Integer id, @Valid TecnicoDTO objDto) {
+        objDto.setId(id);
+        Tecnico oldObj = findById(id);
+        validaPorCpfEEmail(objDto);
+        oldObj = new Tecnico(objDto);
+        return repository.save(oldObj);
     }
 }
