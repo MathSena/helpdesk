@@ -5,6 +5,7 @@ import com.mathsena.helpdesk.domain.Tecnico;
 import com.mathsena.helpdesk.domain.enums.Perfil;
 
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -16,9 +17,13 @@ public class TecnicoDTO implements Serializable {
 
 
     protected Integer id;
+    @NotNull(message = "Campo NOME é requerido")
     protected String nome;
+    @NotNull(message = "Campo CPF é requerido")
     protected String cpf;
+    @NotNull(message = "Campo EMAIL é requerido")
     protected String email;
+    @NotNull(message = "Campo SENHA é requerido")
     protected String senha;
 
 
@@ -26,7 +31,7 @@ public class TecnicoDTO implements Serializable {
     protected LocalDate dataCriacao = LocalDate.now();
 
 
-    public TecnicoDTO(){
+    public TecnicoDTO() {
         super();
     }
 
@@ -81,7 +86,7 @@ public class TecnicoDTO implements Serializable {
     }
 
     public Set<Perfil> getPerfis() {
-        return perfis.stream().map(x-> {
+        return perfis.stream().map(x -> {
             try {
                 return Perfil.toEnum(x);
             } catch (IllegalAccessException e) {
