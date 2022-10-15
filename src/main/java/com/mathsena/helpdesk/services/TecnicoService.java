@@ -66,4 +66,14 @@ public class TecnicoService {
         oldObj = new Tecnico(objDto);
         return repository.save(oldObj);
     }
+
+    public void delete(Integer id) {
+        Tecnico obj = findById(id);
+
+        if (obj.getChamados().size() > 0) {
+            throw new DataIntegrityViolationException("Tecnico possuí ordens de serviço e não pode ser deletado!");
+        } else {
+            repository.deleteById(id);
+        }
+    }
 }
